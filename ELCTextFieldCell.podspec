@@ -4,5 +4,4 @@ Pod::Spec.new do |s|
   s.homepage = 'https://github.com/elc/ELCTextFieldCell'
   s.source   = { :git => 'https://github.com/creativemess/ELCTextFieldCell.git' }
   s.source_files = 'Classes'
-  s.requires_arc = false
 end
