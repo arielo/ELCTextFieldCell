@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-
-@interface ELCTextfieldCell : UITableViewCell <UITextFieldDelegate> {
-
+@interface ELCTextfieldCell : UITableViewCell  <UITextFieldDelegate> {
+    
 	id delegate;
 	UILabel *leftLabel;
 	UITextField *rightTextField;
@@ -25,8 +24,12 @@
 @end
 
 @protocol ELCTextFieldDelegate
-
--(void)textFieldDidReturnWithIndexPath:(NSIndexPath*)_indexPath;
--(void)updateTextLabelAtIndexPath:(NSIndexPath*)_indexPath string:(NSString*)_string;
+@optional
+- (void)textFieldDidReturnWithIndexPath:(NSIndexPath*)_indexPath;
+- (void)updateTextLabelAtIndexPath:(NSIndexPath*)_indexPath string:(NSString*)_string;
+- (void)textFieldDidBeginEditing:(UITextField *)textField indexPath:(NSIndexPath *)indexPath;
+- (void)textFieldDidEndEditing:(UITextField *)textField indexPath:(NSIndexPath *)indexPath;
+- (void)textFieldDidEndEditing:(UITextField *)textField indexPath:(NSIndexPath *)indexPath;
+- (void)textFieldShouldClear:(UITextField *)textField indexPath:(NSIndexPath *)indexPath;
 
 @end

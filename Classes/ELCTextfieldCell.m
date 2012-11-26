@@ -23,7 +23,7 @@
 		leftLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		[leftLabel setBackgroundColor:[UIColor clearColor]];
 		[leftLabel setTextColor:[UIColor colorWithRed:.285 green:.376 blue:.541 alpha:1]];
-		[leftLabel setFont:[UIFont fontWithName:@"Helvetica" size:12]];
+		[leftLabel setFont:[UIFont fontWithName:@"MyriadPro-SemiboldIt" size:15]];
 		[leftLabel setTextAlignment:UITextAlignmentRight];
 		[leftLabel setText:@"Left Field"];
 		[self addSubview:leftLabel];
@@ -32,7 +32,7 @@
 		rightTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 		[rightTextField setDelegate:self];
 		[rightTextField setPlaceholder:@"Right Field"];
-		[rightTextField setFont:[UIFont systemFontOfSize:17]];
+		[rightTextField setFont:[UIFont fontWithName:@"MyriadPro-Regular" size:17]];
 		
 		// FOR MWF USE DONE
 		[rightTextField setReturnKeyType:UIReturnKeyDone];
@@ -61,7 +61,7 @@
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-
+    
     [super setSelected:selected animated:animated];
 }
 
@@ -76,13 +76,13 @@
 }
 
 - (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-
+    
 	NSString *textString = self.rightTextField.text;
 	
 	if (range.length > 0) {
 		
 		textString = [textString stringByReplacingCharactersInRange:range withString:@""];
-	} 
+	}
 	
 	else {
 		
@@ -90,18 +90,40 @@
 			
 			textString = [textString stringByAppendingString:string];
 		}
-
+        
 		else {
 			
-			textString = [textString stringByReplacingCharactersInRange:range withString:string];	
+			textString = [textString stringByReplacingCharactersInRange:range withString:string];
 		}
 	}
 	
-	if([delegate respondsToSelector:@selector(updateTextLabelAtIndexPath:string:)]) {		
+	if([delegate respondsToSelector:@selector(updateTextLabelAtIndexPath:string:)]) {
 		[delegate performSelector:@selector(updateTextLabelAtIndexPath:string:) withObject:indexPath withObject:textString];
 	}
 	
 	return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    if([delegate respondsToSelector:@selector(textFieldShouldClear:indexPath:)]) {
+		[delegate performSelector:@selector(textFieldShouldClear:indexPath:) withObject:textField withObject:self.indexPath];
+	}
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if([delegate respondsToSelector:@selector(textFieldDidBeginEditing:indexPath:)]) {
+		[delegate performSelector:@selector(textFieldDidBeginEditing:indexPath:) withObject:textField withObject:self.indexPath];
+	}
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if([delegate respondsToSelector:@selector(textFieldEndEditing:indexPath:)]) {
+		[delegate performSelector:@selector(textFieldDidEndEditing:indexPath:) withObject:textField withObject:self.indexPath];
+	}
 }
 
 - (void)dealloc {
