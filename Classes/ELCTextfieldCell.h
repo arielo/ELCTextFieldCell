@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PrettyTableViewCell.h"
 
-@interface ELCTextfieldCell : UITableViewCell  <UITextFieldDelegate> {
+@interface ELCTextfieldCell : PrettyTableViewCell   <UITextFieldDelegate> {
     
 	id delegate;
 	UILabel *leftLabel;
